@@ -13,14 +13,14 @@
         body {
             font-family: 'Noto Sans Khmer', sans-serif;
         }
-        h1, .font-koulen {
+        h1, h2, .font-koulen {
             font-family: 'Koulen', cursive;
         }
         /* Loading Spinner */
         .loader {
             border: 5px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 5px solid #3498db;
+            border-top: 5px solid #4f46e5;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
@@ -29,13 +29,20 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Hide form pages by default */
+        
+        /* Page transition animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .form-page {
             display: none;
         }
         .form-page.active {
             display: block;
+            animation: fadeIn 0.5s ease-in-out forwards;
         }
+        
         /* Custom styles for disabled button */
         button:disabled {
             background-color: #a5b4fc;
@@ -43,123 +50,70 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 transition-all duration-300">
 
-    <div class="w-full max-w-3xl bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
+    <div class="w-full max-w-3xl bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-2xl">
         <h1 class="text-2xl sm:text-3xl text-center text-gray-800 mb-2 font-koulen">ទម្រង់ចុះឈ្មោះ</h1>
         <!-- Step Indicator -->
-        <div id="step-indicator" class="text-center text-sm text-gray-500 mb-6">ជំហានទី 1 នៃ 3</div>
+        <div id="step-indicator" class="text-center text-sm text-gray-500 mb-6">ជំហានទី 1 នៃ 4</div>
 
         <form id="registrationForm" class="space-y-4 md:space-y-6">
             <!-- Page 1: Personal Information -->
             <div id="page-1" class="form-page active space-y-4 md:space-y-6">
-                <!-- Khmer Name -->
+                 <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">ព័ត៌មានផ្ទាល់ខ្លួន</h2>
+                <!-- Name Fields -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div>
-                        <label for="lastNameKhmer" class="block text-sm font-medium text-gray-700">គោត្តនាម <span class="text-red-500">*</span></label>
-                        <input type="text" id="lastNameKhmer" name="lastNameKhmer" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                    </div>
-                    <div>
-                        <label for="firstNameKhmer" class="block text-sm font-medium text-gray-700">នាម <span class="text-red-500">*</span></label>
-                        <input type="text" id="firstNameKhmer" name="firstNameKhmer" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                    </div>
-                </div>
-                 <!-- Latin Name -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div>
-                        <label for="lastNameLatin" class="block text-sm font-medium text-gray-700">Last Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="lastNameLatin" name="lastNameLatin" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                    </div>
-                    <div>
-                        <label for="firstNameLatin" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="firstNameLatin" name="firstNameLatin" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                    </div>
+                    <div><label for="lastNameKhmer" class="block text-sm font-medium text-gray-700">គោត្តនាម <span class="text-red-500">*</span></label><input type="text" id="lastNameKhmer" name="lastNameKhmer" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
+                    <div><label for="firstNameKhmer" class="block text-sm font-medium text-gray-700">នាម <span class="text-red-500">*</span></label><input type="text" id="firstNameKhmer" name="firstNameKhmer" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
+                    <div><label for="lastNameLatin" class="block text-sm font-medium text-gray-700">Last Name <span class="text-red-500">*</span></label><input type="text" id="lastNameLatin" name="lastNameLatin" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
+                    <div><label for="firstNameLatin" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label><input type="text" id="firstNameLatin" name="firstNameLatin" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
                 </div>
                 <!-- Gender -->
-                <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-700">ភេទ <span class="text-red-500">*</span></label>
-                    <select id="gender" name="gender" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                        <option value="" disabled selected>-- សូមជ្រើសរើស --</option>
-                        <option value="ប្រុស">ប្រុស</option>
-                        <option value="ស្រី">ស្រី</option>
-                        <option value="ផ្សេងៗ">ផ្សេងៗ</option>
-                    </select>
-                </div>
+                <div><label for="gender" class="block text-sm font-medium text-gray-700">ភេទ <span class="text-red-500">*</span></label><select id="gender" name="gender" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>-- សូមជ្រើសរើស --</option><option value="ប្រុស">ប្រុស</option><option value="ស្រី">ស្រី</option><option value="ផ្សេងៗ">ផ្សេងៗ</option></select></div>
                 <!-- Date of Birth -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">ថ្ងៃខែឆ្នាំកំណើត <span class="text-red-500">*</span></label>
-                    <div class="grid grid-cols-3 gap-3 mt-1">
-                        <select id="dob-day" name="day" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                             <option value="" disabled selected>ថ្ងៃ</option>
-                        </select>
-                        <select id="dob-month" name="month" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                            <option value="" disabled selected>ខែ</option>
-                        </select>
-                        <select id="dob-year" name="year" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                            <option value="" disabled selected>ឆ្នាំ</option>
-                        </select>
-                    </div>
-                </div>
+                <div><label class="block text-sm font-medium text-gray-700">ថ្ងៃខែឆ្នាំកំណើត <span class="text-red-500">*</span></label><div class="grid grid-cols-3 gap-3 mt-1"><select id="dob-day" name="day" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>ថ្ងៃ</option></select><select id="dob-month" name="month" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>ខែ</option></select><select id="dob-year" name="year" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>ឆ្នាំ</option></select></div></div>
             </div>
 
             <!-- Page 2: Contact & Academic -->
             <div id="page-2" class="form-page space-y-4 md:space-y-6">
-                <!-- Province & Email -->
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">ព័ត៌មានសិក្សា និងទំនាក់ទំនង</h2>
+                <!-- Contact Fields -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div>
-                       <label for="province" class="block text-sm font-medium text-gray-700">មកពីខេត្ត <span class="text-red-500">*</span></label>
-                       <select id="province" name="province" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                           <option value="" disabled selected>-- សូមជ្រើសរើសខេត្ត --</option>
-                           <option value="បន្ទាយមានជ័យ">បន្ទាយមានជ័យ</option><option value="បាត់ដំបង">បាត់ដំបង</option><option value="កំពង់ចាម">កំពង់ចាម</option><option value="កំពង់ឆ្នាំង">កំពង់ឆ្នាំង</option><option value="កំពង់ស្ពឺ">កំពង់ស្ពឺ</option><option value="កំពង់ធំ">កំពង់ធំ</option><option value="កំពត">កំពត</option><option value="កណ្ដាល">កណ្ដាល</option><option value="កោះកុង">កោះកុង</option><option value="ក្រចេះ">ក្រចេះ</option><option value="មណ្ឌលគិរី">មណ្ឌលគិរី</option><option value="ឧត្តរមានជ័យ">ឧត្តរមានជ័យ</option><option value="ប៉ៃលិន">ប៉ៃលិន</option><option value="ភ្នំពេញ">ភ្នំពេញ</option><option value="ព្រះវិហារ">ព្រះវិហារ</option><option value="ព្រៃវែង">ព្រៃវែង</option><option value="ពោធិ៍សាត់">ពោធិ៍សាត់</option><option value="រតនគិរី">រតនគិរី</option><option value="សៀមរាប">សៀមរាប</option><option value="ព្រះសីហនុ">ព្រះសីហនុ</option><option value="ស្ទឹងត្រែង">ស្ទឹងត្រែង</option><option value="ស្វាយរៀង">ស្វាយរៀង</option><option value="តាកែវ">តាកែវ</option><option value="ត្បូងឃ្មុំ">ត្បូងឃ្មុំ</option><option value="កែប">កែប</option>
-                       </select>
-                   </div>
-                   <div>
-                       <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                       <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                   </div>
+                    <div><label for="province" class="block text-sm font-medium text-gray-700">មកពីខេត្ត <span class="text-red-500">*</span></label><select id="province" name="province" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>-- សូមជ្រើសរើសខេត្ត --</option><option value="បន្ទាយមានជ័យ">បន្ទាយមានជ័យ</option><option value="បាត់ដំបង">បាត់ដំបង</option><option value="កំពង់ចាម">កំពង់ចាម</option><option value="កំពង់ឆ្នាំង">កំពង់ឆ្នាំង</option><option value="កំពង់ស្ពឺ">កំពង់ស្ពឺ</option><option value="កំពង់ធំ">កំពង់ធំ</option><option value="កំពត">កំពត</option><option value="កណ្ដាល">កណ្ដាល</option><option value="កោះកុង">កោះកុង</option><option value="ក្រចេះ">ក្រចេះ</option><option value="មណ្ឌលគិរី">មណ្ឌលគិរី</option><option value="ឧត្តរមានជ័យ">ឧត្តរមានជ័យ</option><option value="ប៉ៃលិន">ប៉ៃលិន</option><option value="ភ្នំពេញ">ភ្នំពេញ</option><option value="ព្រះវិហារ">ព្រះវិហារ</option><option value="ព្រៃវែង">ព្រៃវែង</option><option value="ពោធិ៍សាត់">ពោធិ៍សាត់</option><option value="រតនគិរី">រតនគិរី</option><option value="សៀមរាប">សៀមរាប</option><option value="ព្រះសីហនុ">ព្រះសីហនុ</option><option value="ស្ទឹងត្រែង">ស្ទឹងត្រែង</option><option value="ស្វាយរៀង">ស្វាយរៀង</option><option value="តាកែវ">តាកែវ</option><option value="ត្បូងឃ្មុំ">ត្បូងឃ្មុំ</option><option value="កែប">កែប</option></select></div>
+                    <div><label for="email" class="block text-sm font-medium text-gray-700">Email</label><input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+                    <div><label for="phone" class="block text-sm font-medium text-gray-700">លេខទូរស័ព្ទ <span class="text-red-500">*</span></label><input type="tel" id="phone" name="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
+                    <div><label for="telegram" class="block text-sm font-medium text-gray-700">តំណភ្ជាប់តេឡេក្រាម</label><input type="url" id="telegram" name="telegram" placeholder="https://t.me/yourusername" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
                 </div>
-                 <!-- Phone & Telegram -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700">លេខទូរស័ព្ទផ្ទាល់ខ្លួន <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                    </div>
-                    <div>
-                        <label for="telegram" class="block text-sm font-medium text-gray-700">តំណភ្ជាប់តេឡេក្រាម (Link)</label>
-                        <input type="url" id="telegram" name="telegram" placeholder="https://t.me/yourusername" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                    </div>
-                </div>
-                <!-- Major -->
-                <div>
-                     <label for="major" class="block text-sm font-medium text-gray-700">ជំនាញសិក្សា <span class="text-red-500">*</span></label>
-                    <input type="text" id="major" name="major" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                </div>
-                 <!-- High School Grade -->
-                <div>
-                    <label for="highSchoolGrade" class="block text-sm font-medium text-gray-700">មធ្យមសិក្សាទុតិយភូមិ <span class="text-red-500">*</span></label>
-                    <select id="highSchoolGrade" name="highSchoolGrade" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                        <option value="" disabled selected>-- សូមជ្រើសរើសនិទ្ទេស --</option>
-                        <option value="A">និទ្ទេស A</option><option value="B">និទ្ទេស B</option><option value="C">និទ្ទេស C</option><option value="D">និទ្ទេស D</option><option value="E">និទ្ទេស E</option><option value="ធ្លាក់">ធ្លាក់</option>
-                    </select>
-                </div>
+                 <!-- Academic Fields -->
+                <div><label for="major" class="block text-sm font-medium text-gray-700">ជំនាញសិក្សា <span class="text-red-500">*</span></label><input type="text" id="major" name="major" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></div>
+                <div><label for="highSchoolGrade" class="block text-sm font-medium text-gray-700">មធ្យមសិក្សាទុតិយភូមិ <span class="text-red-500">*</span></label><select id="highSchoolGrade" name="highSchoolGrade" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required><option value="" disabled selected>-- សូមជ្រើសរើសនិទ្ទេស --</option><option value="A">និទ្ទេស A</option><option value="B">និទ្ទេស B</option><option value="C">និទ្ទេស C</option><option value="D">និទ្ទេស D</option><option value="E">និទ្ទេស E</option><option value="ធ្លាក់">ធ្លាក់</option></select></div>
             </div>
 
             <!-- Page 3: Final Details -->
             <div id="page-3" class="form-page space-y-4 md:space-y-6">
-                 <!-- Hobbies -->
-                 <div>
-                    <label for="hobbies" class="block text-sm font-medium text-gray-700">ចំណូលចិត្ត</label>
-                    <textarea id="hobbies" name="hobbies" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">ព័ត៌មានបន្ថែម</h2>
+                <div><label for="hobbies" class="block text-sm font-medium text-gray-700">ចំណូលចិត្ត</label><textarea id="hobbies" name="hobbies" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea></div>
+                <div><label for="photo" class="block text-sm font-medium text-gray-700">រូបថតសាមីខ្លួន (4x6) <span class="text-red-500">*</span></label><input type="file" id="photo" name="photo" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" required></div>
+            </div>
+            
+            <!-- Page 4: Preview -->
+            <div id="page-4" class="form-page space-y-4 md:space-y-6">
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">ផ្ទៀងផ្ទាត់ព័ត៌មានរបស់អ្នក</h2>
+                <div class="text-center mb-4"><img id="preview-photo" class="mx-auto rounded-lg max-h-48 shadow-md" alt="Preview រូបថត"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-gray-50 p-4 rounded-lg">
+                    <div><p class="text-sm text-gray-500">ឈ្មោះពេញ (ខ្មែរ)</p><p id="preview-fullNameKhmer" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">Full Name (Latin)</p><p id="preview-fullNameLatin" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">ភេទ</p><p id="preview-gender" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">ថ្ងៃខែឆ្នាំកំណើត</p><p id="preview-dob" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">មកពីខេត្ត</p><p id="preview-province" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">ជំនាញសិក្សា</p><p id="preview-major" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">លេខទូរស័ព្ទ</p><p id="preview-phone" class="font-semibold text-gray-800"></p></div>
+                    <div><p class="text-sm text-gray-500">និទ្ទេសទុតិយភូមិ</p><p id="preview-highSchoolGrade" class="font-semibold text-gray-800"></p></div>
                 </div>
-                 <!-- Profile Picture -->
-                <div>
-                    <label for="photo" class="block text-sm font-medium text-gray-700">រូបថតសាមីខ្លួន (4x6) <span class="text-red-500">*</span></label>
-                    <input type="file" id="photo" name="photo" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" required>
-                </div>
-                <!-- Submit Button -->
-                 <div>
-                    <button type="submit" id="submitButton" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" disabled>
-                        ចុះឈ្មោះ
+                 <!-- Submit Button -->
+                 <div class="pt-4">
+                    <button type="submit" id="submitButton" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        បញ្ជូនព័ត៌មាន
                     </button>
                 </div>
             </div>
@@ -171,19 +125,13 @@
             </div>
         </form>
         
-        <!-- Status Message -->
         <div id="statusMessage" class="mt-6 text-center text-sm"></div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="loader"></div>
-    </div>
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"><div class="loader"></div></div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLgXrjCaj7cnJ8PHm2qTt9X8JDo6cRAR0YxKf3phRZ6nPl5IltuKY1csalMuJOxXtm/exec'; // !!! Please replace with your script URL
-        
-        // Form elements
+        const SCRIPT_URL = 'YOUR_NEW_WEB_APP_URL_HERE'; // !!! Please replace with your script URL
         const form = document.getElementById('registrationForm');
         const submitButton = document.getElementById('submitButton');
         const statusMessage = document.getElementById('statusMessage');
@@ -192,66 +140,62 @@
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
         const stepIndicator = document.getElementById('step-indicator');
-        
         let currentPage = 1;
 
-        // --- Date of Birth Population ---
-        const daySelect = document.getElementById('dob-day');
-        const monthSelect = document.getElementById('dob-month');
-        const yearSelect = document.getElementById('dob-year');
-        
         const khmerNumerals = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
         const toKhmerNumeral = (n) => String(n).split('').map(digit => khmerNumerals[parseInt(digit)]).join('');
-        
         const khmerMonths = ["មករា", "កុម្ភៈ", "មីនា", "មេសា", "ឧសភា", "មិថុនា", "កក្កដា", "សីហា", "កញ្ញា", "តុលា", "វិច្ឆិកា", "ធ្នូ"];
-
-        // Populate days (1-31)
-        for (let i = 1; i <= 31; i++) {
-            const day = i < 10 ? '០' + toKhmerNumeral(i) : toKhmerNumeral(i);
-            daySelect.innerHTML += `<option value="${day}">${day}</option>`;
-        }
-
-        // Populate months
-        khmerMonths.forEach(month => {
-            monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
-        });
-
-        // Populate years (e.g., 1950 to current year)
+        const daySelect = document.getElementById('dob-day'), monthSelect = document.getElementById('dob-month'), yearSelect = document.getElementById('dob-year');
+        for (let i = 1; i <= 31; i++) { daySelect.innerHTML += `<option value="${i<10?'០'+toKhmerNumeral(i):toKhmerNumeral(i)}">${i<10?'០'+toKhmerNumeral(i):toKhmerNumeral(i)}</option>`; }
+        khmerMonths.forEach(m => { monthSelect.innerHTML += `<option value="${m}">${m}</option>`; });
         const currentYear = new Date().getFullYear();
-        for (let i = currentYear; i >= 1950; i--) {
-             yearSelect.innerHTML += `<option value="${toKhmerNumeral(i)}">${toKhmerNumeral(i)}</option>`;
-        }
+        for (let i = currentYear; i >= 1950; i--) { yearSelect.innerHTML += `<option value="${toKhmerNumeral(i)}">${toKhmerNumeral(i)}</option>`; }
 
-        // --- Pagination Logic ---
         function showPage(pageNumber) {
-            pages.forEach((page, index) => {
-                page.classList.toggle('active', index + 1 === pageNumber);
-            });
+            pages.forEach((page, index) => page.classList.toggle('active', index + 1 === pageNumber));
             stepIndicator.textContent = `ជំហានទី ${toKhmerNumeral(pageNumber)} នៃ ${toKhmerNumeral(pages.length)}`;
             prevButton.style.display = pageNumber === 1 ? 'none' : 'inline-block';
-            nextButton.style.display = pageNumber === pages.length ? 'none' : 'inline-block';
+            nextButton.textContent = pageNumber === pages.length - 1 ? 'ពិនិត្យមើល' : 'បន្ទាប់';
+            navigation-buttons.style.display = pageNumber === pages.length ? 'none' : 'flex';
         }
 
         function validateCurrentPage() {
-            const inputsOnCurrentPage = pages[currentPage - 1].querySelectorAll('[required]');
-            let allValid = true;
-            statusMessage.textContent = ''; 
-            inputsOnCurrentPage.forEach(input => {
+            const inputs = pages[currentPage - 1].querySelectorAll('[required]');
+            let allValid = true; statusMessage.textContent = '';
+            inputs.forEach(input => {
                 input.classList.remove('border-red-500');
                 if (!input.checkValidity()) {
-                    input.classList.add('border-red-500');
-                    allValid = false;
+                    input.classList.add('border-red-500'); allValid = false;
                 }
             });
-            if(!allValid){
-                 statusMessage.textContent = 'សូមបំពេញព័ត៌មានដែលមានសញ្ញា (*) ទាំងអស់។';
-                 statusMessage.className = 'text-center text-red-600 font-medium';
+            if (!allValid) {
+                statusMessage.textContent = 'សូមបំពេញព័ត៌មានដែលមានសញ្ញា (*) ទាំងអស់។';
+                statusMessage.className = 'text-center text-red-600 font-medium';
             }
             return allValid;
+        }
+        
+        function populatePreview(){
+            document.getElementById('preview-fullNameKhmer').textContent = `${form.lastNameKhmer.value} ${form.firstNameKhmer.value}`;
+            document.getElementById('preview-fullNameLatin').textContent = `${form.firstNameLatin.value} ${form.lastNameLatin.value}`;
+            document.getElementById('preview-gender').textContent = form.gender.value;
+            document.getElementById('preview-dob').textContent = `${form.day.value}-${form.month.value}-${form.year.value}`;
+            document.getElementById('preview-province').textContent = form.province.value;
+            document.getElementById('preview-major').textContent = form.major.value;
+            document.getElementById('preview-phone').textContent = form.phone.value;
+            document.getElementById('preview-highSchoolGrade').textContent = form.highSchoolGrade.options[form.highSchoolGrade.selectedIndex].text;
+            
+            const photoFile = form.photo.files[0];
+            if(photoFile){
+                const reader = new FileReader();
+                reader.onload = e => document.getElementById('preview-photo').src = e.target.result;
+                reader.readAsDataURL(photoFile);
+            }
         }
 
         nextButton.addEventListener('click', () => {
             if (validateCurrentPage()) {
+                if (currentPage === pages.length - 1) populatePreview();
                 currentPage++;
                 showPage(currentPage);
             }
@@ -261,94 +205,39 @@
             currentPage--;
             showPage(currentPage);
         });
-        
-        // --- Submit Button Enable/Disable Logic ---
-        function checkFormCompletion() {
-            submitButton.disabled = !form.checkValidity();
-        }
-        form.addEventListener('input', checkFormCompletion);
-        form.addEventListener('change', checkFormCompletion); // For select and file inputs
 
-        // --- Form Submission ---
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', e => {
             e.preventDefault();
-
-            if (!form.checkValidity()) {
-                showError("សូមបំពេញព័ត៌មានដែលតម្រូវទាំងអស់ មុននឹងចុះឈ្មោះ។");
-                return;
-            }
-
-            submitButton.disabled = true;
-            loadingOverlay.classList.remove('hidden');
-            statusMessage.textContent = '';
-
-            const file = document.getElementById('photo').files[0];
+            if (SCRIPT_URL === 'YOUR_NEW_WEB_APP_URL_HERE') return showError("បញ្ហា៖ សូមដាក់ Web App URL របស់អ្នកនៅក្នុងไฟล์ index.html ជាមុនសិន។");
+            submitButton.disabled = true; loadingOverlay.classList.remove('hidden'); statusMessage.textContent = '';
             const reader = new FileReader();
-            
             reader.onload = () => {
-                const base64Image = reader.result.split(',')[1];
-                
-                // Construct form data object
-                const fullNameKhmer = `${form.lastNameKhmer.value} ${form.firstNameKhmer.value}`;
-                const fullNameLatin = `${form.firstNameLatin.value} ${form.lastNameLatin.value}`; // Western order
-                const dob = `${form.day.value}-${form.month.value}-${form.year.value}`;
-
                 const formData = {
-                    fullNameKhmer: fullNameKhmer,
-                    fullNameLatin: fullNameLatin,
-                    gender: form.gender.value,
-                    dob: dob,
-                    province: form.province.value,
-                    email: form.email.value,
-                    phone: form.phone.value,
-                    telegram: form.telegram.value,
-                    major: form.major.value,
-                    highSchoolGrade: form.highSchoolGrade.value,
+                    lastNameKhmer: form.lastNameKhmer.value, firstNameKhmer: form.firstNameKhmer.value,
+                    lastNameLatin: form.lastNameLatin.value, firstNameLatin: form.firstNameLatin.value,
+                    gender: form.gender.value, dob: `${form.day.value}-${form.month.value}-${form.year.value}`,
+                    province: form.province.value, email: form.email.value, phone: form.phone.value,
+                    telegram: form.telegram.value, major: form.major.value, highSchoolGrade: form.highSchoolGrade.value,
                     hobbies: form.hobbies.value,
-                    photo: {
-                        base64: base64Image,
-                        type: file.type,
-                        name: file.name
-                    }
+                    photo: { base64: reader.result.split(',')[1], type: form.photo.files[0].type, name: form.photo.files[0].name }
                 };
-
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify(formData)
-                })
-                .then(() => {
-                    showSuccess('ការចុះឈ្មោះបានជោគជ័យ! សូមអរគុណ។');
-                    form.reset();
-                    currentPage = 1;
-                    showPage(1);
-                    checkFormCompletion(); // Re-disable submit button
-                })
-                .catch(error => {
-                    showError('មានបញ្ហាក្នុងការបញ្ជូនទិន្នន័យ: ' + error.message);
-                });
+                fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(formData) })
+                .then(() => { showSuccess('ការចុះឈ្មោះបានជោគជ័យ! សូមអរគុណ។'); form.reset(); currentPage = 1; showPage(1); })
+                .catch(error => showError('មានបញ្ហាក្នុងការបញ្ជូនទិន្នន័យ: ' + error.message));
             };
-
             reader.onerror = () => showError('មានបញ្ហាក្នុងការអានរូបថត។');
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(form.photo.files[0]);
         });
 
         function showSuccess(message) {
-            statusMessage.textContent = message;
-            statusMessage.className = 'mt-6 text-center text-green-600 font-medium';
+            statusMessage.textContent = message; statusMessage.className = 'mt-6 text-center text-green-600 font-medium';
             loadingOverlay.classList.add('hidden');
-            // Re-enable button on success in case user wants to submit again
-            submitButton.disabled = false;
         }
-
         function showError(message) {
-            statusMessage.textContent = message;
-            statusMessage.className = 'mt-6 text-center text-red-600 font-medium';
-            loadingOverlay.classList.add('hidden');
-            submitButton.disabled = false; // Re-enable on error
+            statusMessage.textContent = message; statusMessage.className = 'mt-6 text-center text-red-600 font-medium';
+            loadingOverlay.classList.add('hidden'); submitButton.disabled = false;
         }
 
-        // Initial setup
         showPage(currentPage);
     </script>
 </body>
