@@ -140,6 +140,8 @@
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
         const stepIndicator = document.getElementById('step-indicator');
+        // --- FIX: Correctly get the navigation buttons container ---
+        const navigationButtons = document.getElementById('navigation-buttons');
         let currentPage = 1;
 
         const khmerNumerals = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
@@ -156,7 +158,8 @@
             stepIndicator.textContent = `ជំហានទី ${toKhmerNumeral(pageNumber)} នៃ ${toKhmerNumeral(pages.length)}`;
             prevButton.style.display = pageNumber === 1 ? 'none' : 'inline-block';
             nextButton.textContent = pageNumber === pages.length - 1 ? 'ពិនិត្យមើល' : 'បន្ទាប់';
-            navigation-buttons.style.display = pageNumber === pages.length ? 'none' : 'flex';
+            // --- FIX: Use the correctly defined variable ---
+            navigationButtons.style.display = pageNumber === pages.length ? 'none' : 'flex';
         }
 
         function validateCurrentPage() {
